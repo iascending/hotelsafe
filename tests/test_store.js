@@ -6,7 +6,7 @@ describe('Pin could be cleared', () => {
     const newPin = '3456';
     store.commit('setPin', newPin);
     store.commit('setPin', '');
-    expect(store.getters.getPin).toBe('');
+    expect(store.getters.currPin).toBe('');
   });
 });
 
@@ -14,6 +14,6 @@ describe('Pin could be set successfully', () => {
   it('equals', function() {
     const newPin = '3456';
     store.commit('setPin', newPin);
-    expect(store.getters.getPin).toBe(newPin);
+    expect(store.getters.currPin).toBe(newPin);
   });
 });

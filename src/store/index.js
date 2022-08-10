@@ -5,7 +5,7 @@ export default createStore({
     pin: ''
   },
   getters: {
-    getPin: state => state.pin
+    currPin: state => state.pin
   },
   mutations: {
     setPin(state, pin) {

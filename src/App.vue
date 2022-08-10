@@ -38,7 +38,6 @@ export default {
       },
       set(newVal) {
         this.pin = newVal.split('');
-        console.log('set new message ', this.pin);
       }
     },
 
@@ -48,7 +47,7 @@ export default {
     },
 
     secret() {
-      return store.getters.getPin;
+      return store.getters.currPin;
     },
 
     pinMatch() {
@@ -59,9 +58,6 @@ export default {
   methods: {
     addNewNum(val) {
       this.pin.push(val);
-      if (!this.locked && this.pin.length === 4) {
-        store.commit('setPin', this.pin.join(''));
-      }
       if (this.locked && this.pinMatch) {
         this.clear();
         store.commit('setPin', '');
@@ -77,8 +73,16 @@ export default {
         this.message = 'INVALID';
         return;
       }
-      if (!this.locked && this.pin.length === 4) {
+
+      const hasPin = this.secret.length !== 0;
+      const goodPin = this.pin.length === 4;
+      if (!this.locked && goodPin && !hasPin) {
         store.commit('setPin', this.pin.join(''));
+        return;
+      }
+      if (!this.locked && goodPin && hasPin) {
+        store.commit('setPin', '');
+        this.clear();
       }
     }
   },
